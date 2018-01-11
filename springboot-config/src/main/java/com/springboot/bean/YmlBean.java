@@ -1,4 +1,4 @@
-package com.booxj.bean;
+package com.springboot.bean;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

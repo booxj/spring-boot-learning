@@ -1,7 +1,7 @@
-package com.booxj.web;
+package com.springboot.web;
 
-import com.booxj.bean.YmlBean;
-import com.booxj.bean.PropertyBean;
+import com.springboot.bean.YmlBean;
+import com.springboot.bean.PropertyBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
