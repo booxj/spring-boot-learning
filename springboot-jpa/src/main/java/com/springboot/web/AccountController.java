@@ -32,7 +32,7 @@ public class AccountController {
     }
 
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    @PutMapping("{id}")
     public String updateAccount(@PathVariable("id") int id,
                                 @RequestParam(value = "name", required = true) String name,
                                 @RequestParam(value = "money", required = true) double money) {
