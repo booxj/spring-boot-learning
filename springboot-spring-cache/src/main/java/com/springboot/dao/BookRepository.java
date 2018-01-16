@@ -12,4 +12,10 @@ import com.springboot.model.Book;
 public interface BookRepository {
 
     Book getByIsbn(String isbn);
+
+    void update(String isbn);
+
+    void update(Book book);
+
+    public void reload();
 }

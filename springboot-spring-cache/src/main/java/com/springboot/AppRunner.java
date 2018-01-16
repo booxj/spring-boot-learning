@@ -1,6 +1,7 @@
 package com.springboot;
 
 import com.springboot.dao.BookRepository;
+import com.springboot.model.Book;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
@@ -28,10 +29,16 @@ public class AppRunner implements CommandLineRunner {
     public void run(String... strings) throws Exception {
         logger.info(".... Fetching books");
         logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
-        logger.info("isbn-4567 -->" + bookRepository.getByIsbn("isbn-4567"));
-        logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
-        logger.info("isbn-4567 -->" + bookRepository.getByIsbn("isbn-4567"));
         logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
         logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
+        bookRepository.update("isbn-1234");
+        logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
+        bookRepository.update(new Book("isbn-1234","Some Book"));
+        logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
+//        logger.info("isbn-4567 -->" + bookRepository.getByIsbn("isbn-4567"));
+//        logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
+//        logger.info("isbn-4567 -->" + bookRepository.getByIsbn("isbn-4567"));
+//        logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
+//        logger.info("isbn-1234 -->" + bookRepository.getByIsbn("isbn-1234"));
     }
 }
