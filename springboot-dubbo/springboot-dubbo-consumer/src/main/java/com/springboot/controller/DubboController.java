@@ -3,7 +3,6 @@ package com.springboot.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.springboot.model.User;
 import com.springboot.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
