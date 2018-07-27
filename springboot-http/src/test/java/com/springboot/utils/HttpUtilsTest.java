@@ -1,9 +1,11 @@
 package com.springboot.utils;
 
+import com.springboot.config.rest.DefaultRestTemplate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,19 +21,36 @@ import java.util.concurrent.ExecutionException;
 public class HttpUtilsTest {
 
     @Autowired
-    private HttpUtils httpUtils;
+    private DefaultRestTemplate restTemplate;
+
+    HttpEntity entity;
+    HttpHeaders headers;
 
 
     @Test
-    public void httpTest() throws InterruptedException, ExecutionException {
+    public void AsyncPostTest() throws InterruptedException, ExecutionException {
         String url = "http://localhost:8080/post";
 
         MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
         params.add("p", "11");
-        ResponseEntity<String> res = httpUtils.asyncPostForEntity(url, params, String.class);
+        entity = new HttpEntity(params, headers);
+
+        ResponseEntity<String> res = restTemplate.asyncPostForEntity(url, entity, String.class);
 
         System.out.println("sleeping 5s");
         Thread.sleep(5000);
         System.out.println(res.getBody());
+    }
+
+
+    @Test
+    public void PostTest() throws Exception {
+        String url = "http://localhost:8080/post";
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        params.add("p", "11");
+
+        entity = new HttpEntity(params, headers);
+        String res = restTemplate.sendPost(url, String.class, params);
+        System.out.println(res);
     }
 }
