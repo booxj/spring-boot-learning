@@ -8,67 +8,53 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
 
-import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class DefaultRestTemplate extends AbstactRestTemplate {
 
-    private HttpHeaders headers;
-    private HttpEntity entity;
 
     public <T> T sendGet(String url, Class<T> responseType, String... header) {
-        try {
-            setHeader(header);
-            setEntity(new HashMap());
-            T response = getForObject(url, responseType);
-            return response;
-        } finally {
-            release();
-        }
+        T response = getForObject(url, responseType);
+        return response;
+
     }
 
     public <T> T sendPost(String url, Class<T> responseType, Map params, String... header) throws Exception {
-        try {
-            setHeader(header);
-            setEntity(params);
-            T response = postForObject(url, this.entity, responseType);
-            return response;
-        } finally {
-            release();
-        }
+        HttpEntity entity = getEntity(getHeader(header), params);
+        T response = postForObject(url, entity, responseType);
+        return response;
+
     }
 
-    private void release() {
-        this.entity = null;
-        this.headers = null;
-    }
 
     @Override
-    public void setHeader(String... args) {
-        headers = new HttpHeaders();
+    public HttpHeaders getHeader(String... args) {
+        HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+        return headers;
     }
 
 
     @Override
-    public void setEntity(Map params) {
+    public HttpEntity getEntity(HttpHeaders headers, Map params) {
 
         if (params.isEmpty()) {
-            entity = new HttpEntity(this.headers);
+            return new HttpEntity(headers);
         }
         if (params instanceof MultiValueMap) {
-            entity = new HttpEntity(params, this.headers);
+            return new HttpEntity(params, headers);
         }
 
         if (params instanceof Map) {
             try {
                 ObjectMapper mapper = new ObjectMapper();
                 String param = mapper.writeValueAsString(params);
-                entity = new HttpEntity(param, this.headers);
+                return new HttpEntity(param, headers);
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
         }
+        return null;
     }
 }

@@ -2,6 +2,8 @@ package com.springboot.config.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.MultiValueMap;
 import org.springframework.util.concurrent.FailureCallback;
@@ -21,15 +23,14 @@ public abstract class AbstactRestTemplate {
 
     protected AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate();
 
+
     public <T> T getForObject(String url, Class<T> responseType) {
-        setHeader();
         T response = restTemplate.getForObject(url, responseType);
         return response;
     }
 
 
     public <T> ResponseEntity<T> getForEntity(String url, Class<T> responseType) {
-        setHeader();
         ResponseEntity<T> response = restTemplate.getForEntity(url, responseType);
         return response;
     }
@@ -45,9 +46,20 @@ public abstract class AbstactRestTemplate {
         return response;
     }
 
+    public <T> ResponseEntity<T> exchange(String url, HttpEntity entity, Class<T> responseType, String method) {
+        ResponseEntity<T> response = null;
+
+        if ("get".equalsIgnoreCase(method)) {
+            response = restTemplate.exchange(url, HttpMethod.GET, entity, responseType);
+        }
+
+        if ("post".equalsIgnoreCase(method)) {
+            response = restTemplate.exchange(url, HttpMethod.POST, entity, responseType);
+        }
+        return response;
+    }
+
     public <T> ResponseEntity<T> asyncGetForEntity(String url, MultiValueMap params, Class<T> responseType) throws ExecutionException, InterruptedException {
-        setHeader();
-        setEntity(params);
         ListenableFuture<ResponseEntity<T>> future = asyncRestTemplate.getForEntity(url, responseType);
         future.addCallback(new SuccessCallback<ResponseEntity<T>>() {
             public void onSuccess(ResponseEntity<T> result) {
@@ -75,9 +87,9 @@ public abstract class AbstactRestTemplate {
         return future.get();
     }
 
-    public abstract void setHeader(String... args);
+    protected abstract HttpHeaders getHeader(String... args);
 
-    public abstract void setEntity(Map params);
+    protected abstract HttpEntity getEntity(HttpHeaders headers, Map params) throws Exception;
 
 
 }
