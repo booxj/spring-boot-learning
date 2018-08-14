@@ -35,9 +35,11 @@ public class RedisUtilsTest {
         List<User> us = (List<User>) redis.get("users");
         System.out.println(redis.get("userA"));
         System.out.println(redis.get("users"));
-//        System.out.println("==============string===============");
-//        redis.set("string", "string");
-//        System.out.println(redis.get("string"));
+
+
+//        System.out.println("==============object===============");
+        redis.set("string", "string",5);
+        System.out.println(redis.get("string"));
 //
 //        System.out.println("==============map===============");
 //        Map<String, Object> map = new HashMap<>();
