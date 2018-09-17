@@ -1,13 +1,11 @@
 package com.springboot.redis;
 
-
-
-
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -64,6 +62,14 @@ public class RedisUtils {
             } else {
                 redisTemplate.delete(CollectionUtils.arrayToList(key));
             }
+        }
+    }
+
+    public Set<String> keys(String key) {
+        if (key != null && key.length() > 0) {
+            return redisTemplate.keys(key);
+        } else {
+            return new HashSet<>();
         }
     }
 
