@@ -19,27 +19,34 @@ public class RedisUtilsTest {
     @Test
     public void redisTest() {
 
-        User a = new User(1L,"aa",new Date());
-        User b = new User(1L,"aa",new Date());
-        User c = new User(1L,"aa",new Date());
+//        redis.set("user:a","a");
+//        redis.set("user:b","a");
+//        redis.set("user:c","a");
+//        System.out.println(redis.get("user:a"));
+//        Set<String> userSet =  redis.keys("user:*");
+//        System.out.println(userSet);
 
-        List<User> users = new ArrayList<>();
-        users.add(a);
-        users.add(b);
-        users.add(c);
-
-        redis.set("userA",a);
-        redis.set("users",users);
-
-        User u = (User) redis.get("userA");
-        List<User> us = (List<User>) redis.get("users");
-        System.out.println(redis.get("userA"));
-        System.out.println(redis.get("users"));
-
-
-//        System.out.println("==============object===============");
-        redis.set("string", "string",5);
-        System.out.println(redis.get("string"));
+//        User a = new User(1L,"aa",new Date());
+//        User b = new User(1L,"aa",new Date());
+//        User c = new User(1L,"aa",new Date());
+//
+//        List<User> users = new ArrayList<>();
+//        users.add(a);
+//        users.add(b);
+//        users.add(c);
+//
+//        redis.set("userA",a);
+//        redis.set("users",users);
+//
+//        User u = (User) redis.get("userA");
+//        List<User> us = (List<User>) redis.get("users");
+//        System.out.println(redis.get("userA"));
+//        System.out.println(redis.get("users"));
+//
+//
+////        System.out.println("==============object===============");
+//        redis.set("string", "string",5);
+//        System.out.println(redis.get("string"));
 //
 //        System.out.println("==============map===============");
 //        Map<String, Object> map = new HashMap<>();
@@ -53,11 +60,11 @@ public class RedisUtilsTest {
 //        System.out.println(redis.sGetSetSize("set") + ":" + redis.sGet("set"));
 //
 //        System.out.println("==============list===============");
-//        List<String> list = new ArrayList<>();
-//        list.add("aaa");
-//        list.add("bbb");
-//        list.add("ccc");
-//        redis.lSet("list",list);
-//        System.out.println(redis.lGetListSize("list") + ":" + redis.lGet("list", 0, 0));
+        List<String> list = new ArrayList<>();
+        list.add("aaa");
+        list.add("bbb");
+        list.add("ccc");
+        redis.lSet("list",list);
+        System.out.println(redis.lGetListSize("list") + ":" + redis.lGet("list", 0, 0));
     }
 }
