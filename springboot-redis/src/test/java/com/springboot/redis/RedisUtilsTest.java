@@ -1,6 +1,9 @@
 package com.springboot.redis;
 
 import com.springboot.bean.User;
+import org.databene.contiperf.PerfTest;
+import org.databene.contiperf.junit.ContiPerfRule;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,15 @@ public class RedisUtilsTest {
 
     @Autowired
     private RedisUtils redis;
+
+    @Rule
+    public ContiPerfRule i = new ContiPerfRule();
+
+    @Test
+    @PerfTest(invocations = 100000, threads = 100)
+    public void contextLoads() {
+        redis.lGetListSize("list");
+    }
 
     @Test
     public void redisTest() {
