@@ -28,7 +28,7 @@ public class AccountController {
 
     @GetMapping("{id}")
     public Account getAccountById(@PathVariable("id") int id) {
-        return accountDao.findOne(id);
+        return accountDao.getOne(id);
     }
 
 
