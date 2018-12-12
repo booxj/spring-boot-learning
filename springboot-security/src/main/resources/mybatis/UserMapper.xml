@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.security.mapper.UserMapper">
+
+    <resultMap id="SysUserResult" type="com.springboot.security.entity.SysUser">
+        <id column="uid" property="uid" jdbcType="INTEGER"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="salt" property="salt" jdbcType="VARCHAR"/>
+        <result column="created" property="created" jdbcType="DATE"/>
+        <!--权限集合-->
+        <collection property="roleList" ofType="com.springboot.security.entity.SysRole">
+            <id column="rid" property="rid" jdbcType="INTEGER"/>
+            <result column="rolename" property="rolename" jdbcType="VARCHAR"/>
+            <collection property="permissionList" ofType="com.springboot.security.entity.SysPermission">
+            <id column="id" property="id" jdbcType="INTEGER"/>
+            <result column="name" property="name" jdbcType="VARCHAR"/>
+            <result column="url" property="url" jdbcType="VARCHAR"/>
+            <result column="pid" property="pid" jdbcType="INTEGER"/>
+            </collection>
+        </collection>
+    </resultMap>
+
+    <select id="selectByName" resultMap="SysUserResult">
+      select * from t_sys_user u ,t_user_role ur,t_sys_role r,t_role_permission rp,t_sys_permission p
+      where u.uid=ur.user_id and ur.role_id = r.rid and r.rid = rp.role_id and rp.permission_id=p.id
+      and u.username = #{username}
+    </select>
+
+
+</mapper>
