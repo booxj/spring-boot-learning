@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <!-- CSRF -->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <!-- default header name is X-CSRF-TOKEN -->
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>Title</title>
+</head>
+<body>
+
+<form>
+    <h2>Crsf测试</h2>
+    <input type="button" value="Get"  name="crsf_get" onclick="crsf_get_action()"/>
+    <input type="button" value="Post" name="crsf_post" onclick="crsf_post_action()"/>
+    <br>
+    <input type="button" value="noCrsfGet"  name="crsf_get" onclick="no_crsf_get_action()"/>
+    <input type="button" value="noCrsfPost" name="crsf_post" onclick="no_crsf_post_action()"/>
+</form>
+</body>
+<script>
+    function crsf_get_action() {
+        // 获取 CSRF Token
+        var csrfToken = $("meta[name='_csrf']").attr("content");
+
+        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+        console.log(csrfToken);
+        console.log(csrfHeader);
+
+        $.ajax({
+            url: "/csrf/test" ,
+            type: 'GET',
+            beforeSend: function(request) {
+                if(csrfToken && csrfHeader ) {
+                    request.setRequestHeader(csrfHeader, csrfToken); // 添加 CSRF Token
+                } },
+            success: function(data){
+                alert(data);
+            },
+            error : function() {
+                alert(data);
+            }
+        });
+    };
+
+    function crsf_post_action() {
+        // 获取 CSRF Token
+        var csrfToken = $("meta[name='_csrf']").attr("content");
+
+        var csrfHeader = $("meta[name='_csrf_header']").attr("content");
+        console.log(csrfToken);
+        console.log(csrfHeader);
+
+        $.ajax({
+            url: "/csrf/test" ,
+            type: 'POST',
+            beforeSend: function(request) {
+                if(csrfToken && csrfHeader ) {
+                    request.setRequestHeader(csrfHeader, csrfToken); // 添加 CSRF Token
+                } },
+            success: function(data){
+                alert(data);
+            },
+            error : function() {
+                alert(data);
+            }
+        });
+    };
+
+    function no_crsf_get_action() {
+        $.ajax({
+            url: "/csrf/test" ,
+            type: 'GET',
+            success: function(data){
+                alert(data);
+            },
+            error : function() {
+                alert(data);
+            }
+        });
+    };
+
+    function no_crsf_post_action() {
+        $.ajax({
+            url: "/csrf/test" ,
+            type: 'POST',
+            success: function(data){
+                alert(data);
+            },
+            error : function() {
+                alert(data);
+            }
+        });
+    };
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+</html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:sec="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>权限列表</title>
@@ -8,9 +8,11 @@
     <h2>权限列表</h2>
 
     <div>您具有以下权限</div>
-    <div sec:authorize="hasAuthority('add')">增</div>
-    <div sec:authorize="hasAuthority('delete')">删</div>
-    <div sec:authorize="hasAuthority('edite')">改</div>
-    <div sec:authorize="hasAuthority('get')">查</div>
+    <div sec:authorize="hasAnyAuthority('add')">增</div>
+    <div sec:authorize="hasAnyAuthority('delete')">删</div>
+    <div sec:authorize="hasAnyAuthority('edite')">改</div>
+    <div sec:authorize="hasAnyAuthority('get')">查</div>
+
 </body>
+
 </html>

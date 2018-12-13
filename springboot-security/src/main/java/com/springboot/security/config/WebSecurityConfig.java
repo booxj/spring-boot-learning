@@ -12,11 +12,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
+import org.thymeleaf.util.StringUtils;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)  //  启用方法级别的权限认证
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private MyUserDetailsService myUserDetailsService;
@@ -26,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         //  允许所有用户访问"/"和"/index.html"
         http.authorizeRequests()
-                .antMatchers("/", "/index.html").permitAll()
+                .antMatchers("/", "/index.html","/csrf.html","/csrf/test").permitAll()
                 .anyRequest().authenticated()   // 其他地址的访问均需验证权限
                 .and()
                 .formLogin()
@@ -36,11 +38,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutSuccessUrl("/logout.html");
+                // 开启csrf保护
+//                .and()
+//                .csrf().csrfTokenRepository(new HttpSessionCsrfTokenRepository());
+//                .requireCsrfProtectionMatcher(httpServletRequest -> {
+//                    // post非幂等性
+//                    boolean notPost = !StringUtils.equalsIgnoreCase(httpServletRequest.getMethod(), "POST");
+//                    if (notPost) {
+//                        return false;
+//                    }
+//                    return true;
+//                });
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/css/**");
+        web.ignoring().antMatchers("/css/**", "/images/**", "/js/**");
     }
 
     @Override
