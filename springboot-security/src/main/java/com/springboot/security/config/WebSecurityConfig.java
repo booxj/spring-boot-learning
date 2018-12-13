@@ -12,8 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
-import org.thymeleaf.util.StringUtils;
 
 @Configuration
 @EnableWebSecurity
@@ -38,17 +36,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .logoutSuccessUrl("/logout.html");
-                // 开启csrf保护
-//                .and()
-//                .csrf().csrfTokenRepository(new HttpSessionCsrfTokenRepository());
-//                .requireCsrfProtectionMatcher(httpServletRequest -> {
-//                    // post非幂等性
-//                    boolean notPost = !StringUtils.equalsIgnoreCase(httpServletRequest.getMethod(), "POST");
-//                    if (notPost) {
-//                        return false;
-//                    }
-//                    return true;
-//                });
     }
 
     @Override
@@ -66,8 +53,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    public static void main(String[] args) {
-        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-        System.out.println(encoder.encode("guest"));
-    }
 }

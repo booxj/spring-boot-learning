@@ -21,10 +21,6 @@ public class MyUserDetailsService implements UserDetailsService {
     @Autowired
     private UserService userService;
 
-    /**
-     * 授权的时候是对角色授权，而认证的时候应该基于资源，而不是角色，因为资源是不变的，而用户的角色是会变的
-     */
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SysUser sysUser = userService.getUserByName(username);
@@ -33,6 +29,7 @@ public class MyUserDetailsService implements UserDetailsService {
         }
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
         for (SysRole role : sysUser.getRoleList()) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getRolename()));
             for (SysPermission permission : role.getPermissionList()) {
                 authorities.add(new SimpleGrantedAuthority(permission.getUrl()));
             }

@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class UserController {
 
-    @PreAuthorize("hasAuthority('get')")
+//    @PreAuthorize("hasAuthority('get')")
+    @PreAuthorize("hasAnyRole('ADMIN','GUEST')")
     @RequestMapping("/authority.html")
     public String authority() {
         return "authority";
