@@ -24,8 +24,10 @@ public class RedisUtils {
     public void setRedisTemplate(RedisTemplate redisTemplate) {
         RedisSerializer stringSerializer = new StringRedisSerializer();
         redisTemplate.setKeySerializer(stringSerializer);
-//        redisTemplate.setValueSerializer(stringSerializer);
         redisTemplate.setHashKeySerializer(stringSerializer);
+
+        // vlaue 使用默认的jdk序列化
+//        redisTemplate.setValueSerializer(stringSerializer);
 //        redisTemplate.setHashValueSerializer(stringSerializer);
         this.redisTemplate = redisTemplate;
     }
