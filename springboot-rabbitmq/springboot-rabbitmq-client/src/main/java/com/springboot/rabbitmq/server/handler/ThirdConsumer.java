@@ -1,4 +1,4 @@
-package com.springboot.rabbitmq.consumer;
+package com.springboot.rabbitmq.server.handler;
 
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

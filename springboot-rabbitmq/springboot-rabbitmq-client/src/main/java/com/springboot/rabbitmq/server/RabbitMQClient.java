@@ -1,12 +1,12 @@
-package com.springboot.rabbitmq;
+package com.springboot.rabbitmq.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RabbitmqApplication {
+public class RabbitMQClient {
 
     public static void main(String[] args) {
-        SpringApplication.run(RabbitmqApplication.class, args);
+        SpringApplication.run(RabbitMQClient.class, args);
     }
 }
