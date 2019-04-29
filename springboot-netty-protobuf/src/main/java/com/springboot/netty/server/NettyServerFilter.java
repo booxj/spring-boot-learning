@@ -14,13 +14,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.concurrent.TimeUnit;
 
-/**
- * @author pancm
- * @Title: HelloServerInitializer
- * @Description: Netty 服务端过滤器
- * @Version:1.0.0
- * @date 2017年10月8日
- */
+
 @Component
 public class NettyServerFilter extends ChannelInitializer<SocketChannel> {
 

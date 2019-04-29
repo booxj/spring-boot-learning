@@ -8,13 +8,7 @@ import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.ReferenceCountUtil;
 import org.springframework.stereotype.Service;
 
-/**
- * @author pancm
- * @Title: NettyServerHandler
- * @Description: 服务端业务逻辑
- * @Version:1.0.0
- * @date 2017年10月8日
- */
+
 @Service("nettyServerHandler")
 public class NettyServerHandler extends ChannelInboundHandlerAdapter {
 
