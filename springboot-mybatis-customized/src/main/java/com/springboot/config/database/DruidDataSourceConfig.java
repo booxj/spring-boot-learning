@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -25,11 +24,6 @@ public class DruidDataSourceConfig {
 
     @Autowired
     private DruidDataSourceSettings druidSettings;
-
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer propertyConfigure() {
-        return new PropertySourcesPlaceholderConfigurer();
-    }
 
     @Bean
     public DataSource dataSource() throws SQLException {

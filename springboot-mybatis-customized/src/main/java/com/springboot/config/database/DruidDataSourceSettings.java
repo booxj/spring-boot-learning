@@ -1,9 +1,7 @@
 package com.springboot.config.database;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -30,11 +28,6 @@ public class DruidDataSourceSettings {
     private String filters;
     private String connectionProperties;
     private String publickey;
-
-    @Bean
-    public static PropertySourcesPlaceholderConfigurer  propertySourcesPlaceholderConfigurer(){
-        return new PropertySourcesPlaceholderConfigurer();
-    }
 
     public String getDriverClassName() {
         return driverClassName;
