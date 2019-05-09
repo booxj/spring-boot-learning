@@ -1,7 +1,7 @@
-package com.springboot.service;
+package com.springboot.mybatis.service;
 
-import com.springboot.mapper.AccountMapper;
-import com.springboot.model.Account;
+import com.springboot.mybatis.mapper.AccountMapper;
+import com.springboot.mybatis.model.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

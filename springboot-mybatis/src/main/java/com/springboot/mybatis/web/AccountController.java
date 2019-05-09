@@ -1,7 +1,7 @@
-package com.springboot.web;
+package com.springboot.mybatis.web;
 
-import com.springboot.model.Account;
-import com.springboot.service.AccountService;
+import com.springboot.mybatis.model.Account;
+import com.springboot.mybatis.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

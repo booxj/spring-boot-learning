@@ -1,6 +1,6 @@
-package com.springboot.mapper;
+package com.springboot.mybatis.mapper;
 
-import com.springboot.model.Account;
+import com.springboot.mybatis.model.Account;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
