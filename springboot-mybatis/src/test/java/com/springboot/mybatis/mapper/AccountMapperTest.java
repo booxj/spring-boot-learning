@@ -25,7 +25,7 @@ public class AccountMapperTest {
 
         final PageInfo<Account> pageInfo = PageHelper.startPage(1,2).setOrderBy("id asc").doSelectPageInfo(()->mapper.findAccountList());
         logger.info(pageInfo.toString());
-        logger.info("============== 分割线 ====================");
+        logger.info("==================== 分割线 ====================");
         PageHelper.startPage(2, 1).setOrderBy("id asc");
         logger.info(mapper.findAccountList().toString());
     }
