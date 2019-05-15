@@ -1,4 +1,4 @@
-package com.springboot.config.rest;
+package com.springboot.rest.config.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutionException;
 public abstract class AbstactRestTemplate {
 
     @Autowired
-    protected RestTemplate restTemplate = new RestTemplate();
+    protected RestTemplate restTemplate;
 
     protected AsyncRestTemplate asyncRestTemplate = new AsyncRestTemplate();
 

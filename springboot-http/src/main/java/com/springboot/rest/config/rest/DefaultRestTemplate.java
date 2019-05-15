@@ -1,4 +1,4 @@
-package com.springboot.config.rest;
+package com.springboot.rest.config.rest;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -31,7 +31,6 @@ public class DefaultRestTemplate extends AbstactRestTemplate {
     @Override
     public HttpHeaders getHeader(String... args) {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
         return headers;
     }
 
@@ -48,6 +47,8 @@ public class DefaultRestTemplate extends AbstactRestTemplate {
 
         if (params instanceof Map) {
             try {
+                headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+
                 ObjectMapper mapper = new ObjectMapper();
                 String param = mapper.writeValueAsString(params);
                 return new HttpEntity(param, headers);
