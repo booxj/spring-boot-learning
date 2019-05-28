@@ -1,0 +1,49 @@
+quartz:
+  enabled: true
+spring:
+  application:
+    name: schedule
+  quartz:
+    schedulerName: mySchedule
+    autoStartup: true
+    startupDelay: 0
+    waitForJobsToCompleteOnShutdown: true
+    overwriteExistingJobs: false
+    # 数据库方式
+    job-store-type: jdbc
+      # 初始化表结构
+    #jdbc:
+    #initialize-schema: never
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: quartzScheduler      # 调度器实例名称
+            instanceId: AUTO                   # ID设置为自动获取 每一个必须不同 （所有调度器实例中是唯一的）
+            makeSchedulerThreadDaemon: true    # 指定调度程序的主线程是否应该是守护线程
+            skipUpdateCheck: true
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool     # 线程池配置，必须是 ThreadPool 实现的类名
+            makeThreadsDaemons: true           # 设置 ThreadPool 线程为守护进程
+            threadCount: 20                    # 线程数量，默认10
+            threadPriority: 5                  # 线程优先级 1 - 10 10最高
+            threadsInheritContextClassLoaderOfInitializingThread: true   # 配置是否启动自动加载数据库内的定时任务，默认true
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX  # 数据保存方式为持久化
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate   # StdJDBCDelegate说明支持集群
+            tablePrefix: QRTZ_        # quartz内部表的前缀
+            isClustered: true         # 开启分布式部署
+            misfireThreshold: 2500    # 容许的最大作业延长时间，某一节点宕机时，其他节点接管任务的话，超过这个时间的任务就不重补执行了，否则在其他节点唤醒得慢并且执行间隔时间短的话，就会哗啦啦地飚出一大堆同样的任务连续执行
+          plugin:
+            # triggHistory:
+            # class: org.quartz.plugins.history.LoggingJobHistoryPlugin
+            shutdownhook:
+              class: org.quartz.plugins.management.ShutdownHookPlugin
+              cleanShutdown: true
+  # 数据库
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.110.42.93:3306/spring_boot_learning
+    username: root
+    password: 123456
+
