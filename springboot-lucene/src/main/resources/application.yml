@@ -1,0 +1,6 @@
+server:
+  port: 9991
+
+search:
+  lucence:
+    path: ./lucence/file
