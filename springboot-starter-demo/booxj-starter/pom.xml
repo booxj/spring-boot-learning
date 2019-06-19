@@ -15,6 +15,8 @@
         <module>../booxj-service</module>
         <module>../booxj-service-starter</module>
         <module>../booxj-starter-sample</module>
+        <module>../booxj-import-sample</module>
+        <module>../booxj-bean-scope-sample</module>
     </modules>
 
     <parent>
